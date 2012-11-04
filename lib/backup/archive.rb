@@ -36,15 +36,8 @@ module Backup
     # Adds new paths to the @paths instance variable array
     def add(path)
       path = File.expand_path(path)
-      if File.exist?(path)
-        @paths << path
-      else
-        Logger.warn Errors::Archive::NotFoundError.new(<<-EOS)
-          The following path was not found:
-          #{ path }
-          This path will be omitted from the '#{ name }' Archive.
-        EOS
-      end
+      @paths << path
+      #yes, this is a bad idea - but I need to copy files in the before hook...
     end
 
     ##
